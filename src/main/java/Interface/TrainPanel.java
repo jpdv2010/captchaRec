@@ -111,7 +111,7 @@ public class TrainPanel extends JFrame{
         public void actionPerformed(ActionEvent actionEvent) {
             if (image != null) {
                 try {
-                    weightsStorer = new WeightsStorer();
+                    weightsStorer = new WeightsStorer(txtLetter.getText());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -122,7 +122,7 @@ public class TrainPanel extends JFrame{
 
                 weights=new double[image.getHeight()*image.getWidth()];
                 try {
-                    weights = weightsStorer.getLocalWeights(letter);
+                    weights = weightsStorer.getWeights();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -130,11 +130,7 @@ public class TrainPanel extends JFrame{
                 weights = train.getWeights();
                 weightsStorer.setWeights(weights);
             }
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            dispose();
         }
     };
 }

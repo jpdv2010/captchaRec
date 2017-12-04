@@ -20,6 +20,17 @@ public class TextRecognizer {
     public TextRecognizer(BufferedImage image){
         this.image = image;
         try {
+            WeightsStorer weightsStorer = new WeightsStorer("A");
+            double[] weights = weightsStorer.getWeights();
+            double a = weights[0];
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             getImageText();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -44,9 +55,9 @@ public class TextRecognizer {
             for(String symbol : symbolList){
                 int somatory = 0;
                 double[] weights = new double[0];
-                WeightsStorer weightsStorer = new WeightsStorer();
+                WeightsStorer weightsStorer = new WeightsStorer(symbol);
                 try {
-                    weights = weightsStorer.getLocalWeights(symbol);
+                    weights = weightsStorer.getWeights();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

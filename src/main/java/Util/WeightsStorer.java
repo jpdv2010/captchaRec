@@ -9,10 +9,11 @@ public class WeightsStorer {
     private File directory = new File("/home/joao/Documents/Projects/neppo/SeleniumTreinamento-master/txtRec/src/main/store/weights/");
     private File file;
     private File[] allFiles = directory.listFiles();
-    private String PATH = "/home/joao/Documents/Projects/neppo/SeleniumTreinamento-master/txtRec/src/main/store/weights/";
+    private String PATH = "C:/Users/joaop/OneDrive/Documentos/computação/PDI-all/captchaRec/src/main/store/weights/";
     private String fileName;
 
-    public WeightsStorer() throws FileNotFoundException, UnsupportedEncodingException {
+    public WeightsStorer(String letter) throws FileNotFoundException, UnsupportedEncodingException {
+        this.fileName = "wheights_" + letter + ".txt";
     }
 
     public void createOrUpdateFile(File file) throws FileNotFoundException, UnsupportedEncodingException {
@@ -24,7 +25,7 @@ public class WeightsStorer {
 
     public void updateLocalWeights(File file,double[] weights) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer;
-        writer = new PrintWriter(PATH + file.getName(), "UTF-8");
+        writer = new PrintWriter(PATH + fileName, "UTF-8");
         for (Double weight : weights) writer.println(weight.toString());
         writer.close();
     }
@@ -40,8 +41,8 @@ public class WeightsStorer {
         return new File(fileName);
     }
 
-    public double[] getLocalWeights(String letter) throws IOException {
-        this.file = existsFile(PATH + "wheights_" + letter + ".txt");
+    public double[] getWeights() throws IOException {
+        this.file = existsFile(PATH + fileName);
         FileReader fileReader = new FileReader(this.file);
         BufferedReader reader = new BufferedReader(fileReader);
         int i=0;
@@ -55,11 +56,14 @@ public class WeightsStorer {
         return this.weights;
     }
 
-    public double[] getWeights() {
-        return weights;
-    }
-
     public void setWeights(double[] weights) {
         this.weights = weights;
+        try {
+            updateLocalWeights(existsFile(PATH+fileName),this.weights);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

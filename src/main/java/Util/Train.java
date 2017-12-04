@@ -1,5 +1,7 @@
 package Util;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 public class Train {
     private double[] weights;
@@ -17,10 +19,9 @@ public class Train {
         int cicles = 0;
 
         double minimError = 0.001;
-        while (majorError > minimError)
+        while (majorError > minimError && cicles<10)
         {
             majorError = 0;
-            cicles ++;
             String[] symbolList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
                     , "U", "V", "W", "X", "Y", "Z" , "1" , "2" , "3" , "4" , "5" , "6" , "7" ,"8" , "9" , "0"};
             for (String aSymbolList : symbolList) {
@@ -53,7 +54,16 @@ public class Train {
                     deltaW[j] = erro * train[j] * learningRate;
                     this.weights[j] += deltaW[j];
                 }
+                try {
+                    WeightsStorer weightsStorer = new WeightsStorer(symbol);
+                    weightsStorer.setWeights(this.weights);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
+            cicles ++;
         }
         System.out.println("Ciclos: "+cicles);
 
