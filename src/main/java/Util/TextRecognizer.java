@@ -13,8 +13,6 @@ import java.util.List;
 public class TextRecognizer {
     private BufferedImage image;
     private List<BufferedImage> subImageList = new ArrayList<BufferedImage>();
-    private String[] symbolList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-            , "U", "V", "W", "X", "Y", "Z" , "1" , "2" , "3" , "4" , "5" , "6" , "7" ,"8" , "9" , "0"};
     public String letters = "";
 
     public TextRecognizer(BufferedImage image){
@@ -52,7 +50,7 @@ public class TextRecognizer {
         for(BufferedImage subImage : subImageList){
             LetterReconning letterReconning = new LetterReconning();
             int[] neurons = letterReconning.getLetterArray(subImage);
-            for(String symbol : symbolList){
+            for(String symbol : Definitions.symbolList){
                 int somatory = 0;
                 double[] weights = new double[0];
                 WeightsStorer weightsStorer = new WeightsStorer(symbol);

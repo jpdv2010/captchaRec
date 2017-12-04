@@ -9,9 +9,8 @@ public class Train {
     public Train(String symbol, BufferedImage image, double[] weights){
         this.weights=weights;
         double[] deltaW=new double[image.getHeight()*image.getWidth()];
-
         LetterReconning letterReconning=new LetterReconning();
-        int[] train=letterReconning.getLetterArray(image);
+        int[] neurons=letterReconning.getLetterArray(image);
 
         double majorError = 1;
         int desiredOutput;
@@ -22,9 +21,7 @@ public class Train {
         while (majorError > minimError && cicles<10)
         {
             majorError = 0;
-            String[] symbolList = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-                    , "U", "V", "W", "X", "Y", "Z" , "1" , "2" , "3" , "4" , "5" , "6" , "7" ,"8" , "9" , "0"};
-            for (String aSymbolList : symbolList) {
+            for (String aSymbolList : Definitions.symbolList) {
                 if (symbol.equals(aSymbolList))//DEFINE A SAIDA DESEJADA
                 {
                     desiredOutput = 1;
@@ -34,7 +31,7 @@ public class Train {
                 double somatory = 0;
                 for (int k = 0; k < image.getHeight() * image.getWidth(); k++)//-----------calculo de somatorio
                 {
-                    somatory += (train[k] * this.weights[k]);
+                    somatory += (neurons[k] * this.weights[k]);
                 }
                 if (somatory >= 0) {
                     somatory = 1;
@@ -51,7 +48,7 @@ public class Train {
                 for (int j = 0; j < image.getWidth() * image.getHeight(); j++)//ATUALIZA OS PESOS DA LETRA
                 {
                     double learningRate = 0.02;
-                    deltaW[j] = erro * train[j] * learningRate;
+                    deltaW[j] = erro * neurons[j] * learningRate;
                     this.weights[j] += deltaW[j];
                 }
                 try {
