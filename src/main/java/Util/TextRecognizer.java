@@ -72,13 +72,13 @@ public class TextRecognizer {
 
     private BufferedImage generateSubMatrix(int i, int j){
         BufferedImage subImage = new BufferedImage(45,57,BufferedImage.TYPE_BYTE_GRAY);
-        int z=0,w=0;
+        int h=0,w=0;
         for(int x=-22;x<=22;x++){
             for(int y=-28;y<=28;y++){
-                subImage.setRGB(new Color(image.getRGB(i+x,j+y)).getRGB(),z,w);
-                w++;
+                subImage.setRGB(new Color(image.getRGB(i+x,j+y)).getRGB(),w,h);
+                h++;
             }
-            z++;
+            w++;
         }
         return subImage;
     }
