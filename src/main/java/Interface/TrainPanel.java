@@ -39,7 +39,7 @@ public class TrainPanel extends JFrame{
         container=new Container();
         container.setSize(200,200);
 
-        btnOpenArchive = new JButton("Abrir Imagem");
+        btnOpenArchive = new JButton("Open Image");
         btnOpenArchive.setBounds(25,10,150,30);
         btnOpenArchive.addActionListener(openImage);
         btnOpenArchive.setVisible(true);
@@ -51,13 +51,13 @@ public class TrainPanel extends JFrame{
         container.add(areaImage,BorderLayout.CENTER);
 
         txtLetter = new JTextField();
-        txtLetter.setBounds(25,150,100,30);
+        txtLetter.setBounds(25,150,150,30);
         txtLetter.setVisible(true);
         txtLetter.setEnabled(false);
         txtLetter.addActionListener(enableTextButton);
         container.add(txtLetter,BorderLayout.CENTER);
 
-        btnTrain = new JButton("Treinar Rede");
+        btnTrain = new JButton("Train Network");
         btnTrain.setBounds(25,200,150,30);
         btnTrain.addActionListener(trainNetwork);
         btnTrain.setVisible(true);
@@ -80,12 +80,11 @@ public class TrainPanel extends JFrame{
                     image = null;
 
                     try {
-                        image = ImageIO.read(archive);
+                        image = new ImageFilter(ImageIO.read(archive)).image;
                     } catch (IOException exc) {
                         JOptionPane.showMessageDialog(null, "Erro ao carregar a imagem: " + exc.getMessage());
                     }
-
-                    image=new ImageFilter(image).image;
+                    
                     if(image != null){
                         areaImage.image = image;
                         areaImage.repaint();

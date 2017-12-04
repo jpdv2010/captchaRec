@@ -34,7 +34,7 @@ public class TestPanel extends JFrame{
         container=new Container();
         container.setSize(200,200);
 
-        btnOpenArchive = new JButton("Abrir Imagem");
+        btnOpenArchive = new JButton("Open Captcha");
         btnOpenArchive.setBounds(25,10,150,30);
         btnOpenArchive.addActionListener(openImage);
         btnOpenArchive.setVisible(true);
@@ -53,7 +53,7 @@ public class TestPanel extends JFrame{
         container.add(btnRecognize,BorderLayout.CENTER);
 
         txtTextRecognized = new JTextField();
-        txtTextRecognized.setBounds(200,200,100,30);
+        txtTextRecognized.setBounds(200,200,230,30);
         txtTextRecognized.setVisible(true);
         txtTextRecognized.setEnabled(false);
         container.add(txtTextRecognized,BorderLayout.CENTER);
@@ -77,12 +77,10 @@ public class TestPanel extends JFrame{
                     image = null;
 
                     try {
-                        image = ImageIO.read(archive);
+                        image = new ImageFilter(ImageIO.read(archive)).image;
                     } catch (IOException exc) {
                         JOptionPane.showMessageDialog(null, "Erro ao carregar a imagem: " + exc.getMessage());
                     }
-
-                    image=new ImageFilter(image).image;
                     if(image != null){
                         areaImage.image = image;
                         areaImage.repaint();
@@ -97,7 +95,6 @@ public class TestPanel extends JFrame{
     private ActionListener recognizeImage = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            image = new ImageFilter(image).image;
             TextRecognizer textRecognizer = new TextRecognizer(image);
             txtTextRecognized.setText(textRecognizer.letters);
         }
