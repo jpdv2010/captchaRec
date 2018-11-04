@@ -15,17 +15,27 @@ public class LetterReconning {
         //int[] histogram = getHistogram(image);
         //int major = getMajor(histogram);
         //int minor=getMinor(histogram);
+        double average = 0;
+
         int rgb = image.getRGB(0,0);
         int index = 0;
         for( int i = 0 ; i < image.getWidth() ; i++ ){
             for( int j = 0 ; j < image.getHeight() ; j++ ){
-                if( image.getRGB(i,j) == -1){
+                average+=image.getRGB(i,j);
+            }
+        }
+        average = average/(image.getWidth()*image.getHeight());
+
+        for( int i = 0 ; i < image.getWidth() ; i++ ){
+            for( int j = 0 ; j < image.getHeight() ; j++ ){
+                if( image.getRGB(i,j) > average){
                     neurArray[index++] = -1;
                 } else {
                     neurArray[index++] = 1;
                 }
             }
         }
+
         return neurArray;
     }
 

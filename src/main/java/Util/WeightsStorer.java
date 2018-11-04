@@ -14,7 +14,7 @@ public class WeightsStorer {
 
     private void createOrUpdateFile(File file) throws FileNotFoundException, UnsupportedEncodingException {
             double[] weights = new double[45*57];
-            for (int i = 0 ; i< weights.length ; i++) weights[i] = 0.0;
+            for (int i = 0 ; i < weights.length ; i++) weights[i] = 0.0;
             updateLocalWeights(file , weights);
 
     }
@@ -55,7 +55,7 @@ public class WeightsStorer {
     public void setWeights(double[] weights) {
         this.weights = weights;
         try {
-            updateLocalWeights(existsFile(Definitions.PATH+fileName),this.weights);
+            updateLocalWeights(existsFile(Definitions.PATH + fileName) , this.weights);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

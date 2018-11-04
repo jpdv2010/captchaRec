@@ -74,6 +74,7 @@ public class TrainPanel extends JFrame{
         openImage = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fChooser = new JFileChooser();
+                fChooser.setCurrentDirectory(new File("C:/Users/joaop/OneDrive/Documentos/computação/PDI-all/v2Images/letters"));
                 int res = fChooser.showOpenDialog(null);
                 if (res == JFileChooser.APPROVE_OPTION) {
                     File archive = fChooser.getSelectedFile();
@@ -84,7 +85,7 @@ public class TrainPanel extends JFrame{
                     } catch (IOException exc) {
                         JOptionPane.showMessageDialog(null, "Erro ao carregar a imagem: " + exc.getMessage());
                     }
-                    
+
                     if(image != null){
                         areaImage.image = image;
                         areaImage.repaint();

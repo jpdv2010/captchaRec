@@ -1,4 +1,6 @@
 package Util;
+import Interface.TestArray;
+
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -11,6 +13,7 @@ public class Train {
         double[] deltaW=new double[image.getHeight()*image.getWidth()];
         LetterReconning letterReconning=new LetterReconning();
         int[] neurons=letterReconning.getLetterArray(image);
+        TestArray testArray = new TestArray(neurons);
 
         double majorError = 1;
         int desiredOutput;
@@ -21,7 +24,7 @@ public class Train {
         while (majorError > minimError && cicles<10)
         {
             majorError = 0;
-            for (String aSymbolList : Definitions.symbolList) {
+            for (String aSymbolList : Definitions.BASIC_ALPHANUMERIC_LIST) {
                 if (symbol.equals(aSymbolList))//DEFINE A SAIDA DESEJADA
                 {
                     desiredOutput = 1;
